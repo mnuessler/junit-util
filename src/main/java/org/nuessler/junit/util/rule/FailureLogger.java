@@ -15,6 +15,8 @@
  */
 package org.nuessler.junit.util.rule;
 
+import static org.apache.commons.lang3.StringUtils.defaultString;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -53,8 +55,7 @@ public class FailureLogger extends TestWatcher {
 
     private String formatMessage(Description description, StackTraceElement element, Throwable t) {
         return String.format("%s in %s#%s, line %s: %s", t.getClass().getCanonicalName(), description.getTestClass(),
-                description.getMethodName(), element.getLineNumber(),
-                t.getMessage() == null ? "<no message>" : t.getMessage());
+                description.getMethodName(), element.getLineNumber(), defaultString(t.getMessage(), "<no message>"));
     }
 
     private void log(String msg) {
@@ -64,4 +65,5 @@ public class FailureLogger extends TestWatcher {
     public interface Callback<T> {
         void call(T value);
     }
+
 }
