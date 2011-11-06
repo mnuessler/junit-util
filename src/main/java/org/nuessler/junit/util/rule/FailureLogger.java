@@ -35,16 +35,14 @@ public class FailureLogger extends TestWatcher {
                 .getFailures() : Collections.singletonList(e);
 
         for (Throwable t : failures) {
-            StackTraceElement element = findStrackTraceForClass(
-                    t.getStackTrace(), description.getClassName());
+            StackTraceElement element = findStrackTraceForClass(t.getStackTrace(), description.getClassName());
             if (element != null) {
                 log(formatMessage(description, element, t));
             }
         }
     }
 
-    private StackTraceElement findStrackTraceForClass(
-            StackTraceElement[] elements, String className) {
+    private StackTraceElement findStrackTraceForClass(StackTraceElement[] elements, String className) {
         for (StackTraceElement element : elements) {
             if (element.getClassName().contains(className)) {
                 return element;
@@ -53,11 +51,9 @@ public class FailureLogger extends TestWatcher {
         return null;
     }
 
-    private String formatMessage(Description description,
-            StackTraceElement element, Throwable t) {
-        return String.format("%s in %s#%s, line %s: %s", t.getClass()
-                .getCanonicalName(), description.getTestClass(), description
-                .getMethodName(), element.getLineNumber(),
+    private String formatMessage(Description description, StackTraceElement element, Throwable t) {
+        return String.format("%s in %s#%s, line %s: %s", t.getClass().getCanonicalName(), description.getTestClass(),
+                description.getMethodName(), element.getLineNumber(),
                 t.getMessage() == null ? "<no message>" : t.getMessage());
     }
 
