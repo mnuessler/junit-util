@@ -32,21 +32,21 @@ public class FailureLogger extends TestWatcher {
     }
 
     @Override
-    protected void failed(Throwable e, Description description) {
-        List<Throwable> failures = (e instanceof MultipleFailureException) ? ((MultipleFailureException) e)
-                .getFailures() : Collections.singletonList(e);
+    protected void failed(Throwable failure, Description description) {
+        List<Throwable> failures = (failure instanceof MultipleFailureException) ? ((MultipleFailureException) failure)
+                .getFailures() : Collections.singletonList(failure);
 
         for (Throwable t : failures) {
-            StackTraceElement element = findStrackTraceForClass(t.getStackTrace(), description.getClassName());
-            if (element != null) {
-                log(formatMessage(description, element, t));
+            StackTraceElement testClassElement = findStrackTraceForClass(t.getStackTrace(), description.getClassName());
+            if (testClassElement != null) {
+                log(formatMessage(description, testClassElement, t));
             }
         }
     }
 
-    private StackTraceElement findStrackTraceForClass(StackTraceElement[] elements, String className) {
+    private StackTraceElement findStrackTraceForClass(StackTraceElement[] elements, String testClassName) {
         for (StackTraceElement element : elements) {
-            if (element.getClassName().contains(className)) {
+            if (element.getClassName().contains(testClassName)) {
                 return element;
             }
         }
@@ -54,7 +54,7 @@ public class FailureLogger extends TestWatcher {
     }
 
     private String formatMessage(Description description, StackTraceElement element, Throwable t) {
-        return String.format("%s in %s#%s, line %s: %s", t.getClass().getCanonicalName(), description.getTestClass(),
+        return String.format("%s in %s#%s, line %d: %s", t.getClass().getCanonicalName(), description.getTestClass(),
                 description.getMethodName(), element.getLineNumber(), defaultString(t.getMessage(), "<no message>"));
     }
 
