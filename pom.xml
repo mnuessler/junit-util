@@ -53,14 +53,14 @@
 	</prerequisites>
 
 	<scm>
-		<connection>scm:git:git@github.com:mnuessler/junit-util.git</connection>
-		<developerConnection>scm:git:git@github.com:mnuessler/junit-util.git</developerConnection>
+		<connection>scm:git:git://github.com/mnuessler/junit-util.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:mnuessler/junit-util.git</developerConnection>
 		<url>http://github.com/mnuessler/junit-util</url>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url></url>
+		<url>http://github.com/mnuessler/junit-util/issues</url>
 	</issueManagement>
 
 	<properties>
@@ -257,16 +257,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
-				<configuration>
-					<instrumentation>
-						<ignores>
-							<ignore>build.cakupan.*</ignore>
-						</ignores>
-						<excludes>
-							<exclude>**/HelpMojo.class</exclude>
-						</excludes>
-					</instrumentation>
-				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -473,4 +463,3 @@
 	</reporting>
 
 </project>
-
